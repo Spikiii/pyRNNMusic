@@ -1,3 +1,10 @@
+import numpy
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import Dropout
+from keras.layers import LSTM
+from keras.callbacks import ModelCheckpoint
+from keras.utils import np_utils
 
 #Defs
 notes = ["C", "^C", "D", "^D", "E", "F", "^F", "G", "^G", "A", "^A", "B"]
