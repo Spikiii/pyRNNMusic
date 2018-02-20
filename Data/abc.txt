@@ -1,4 +1,4 @@
-X:50
+X:1
 T:Farewell to Erin
 T:Farewell to Ireland
 R:reel
@@ -15,3 +15,16 @@ agef g3e|dedB GABd|cBAB cdea|gedB BAA2:|
 eA(3cBA eA(3cBA|dedB GABd|cBAB cdea|gedB BAA2:|
 |:ae^ce aece|gdBd gdBd|ae^ce a3f|gedB BAA2|
 agef g3e|dedB GABd|cBAB cdea|gedB BAA2:|
+
+X: 2
+T:Swallow Tail Jig, The
+R:Jig
+M:6/8
+K:Edor
+F \
+|: GEE BEE | GEE BAG | FDD ADD | dcd AGF |
+GEE BEE | GEE B2c | dcd AGF |\
+[1 GEE E2F :|[2 GEE E3 ||
+|: Bcd e2f | e2f edB | Bcd e2f | edB d3 |
+Bcd e2f | e2f edB | dcd AGF |\
+[1 GEE E3 :|[2 GEE E2F |]

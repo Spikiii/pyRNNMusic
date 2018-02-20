@@ -5,7 +5,6 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
-import sys
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
 #Settings
