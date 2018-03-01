@@ -13,20 +13,20 @@ filename = "Data/abc.txt"
 
 #Defs
 notes = ["C", "^C", "D", "^D", "E", "F", "^F", "G", "^G", "A", "^A", "B"]
-raw_file = open(filename)
-raw_text = []
-
-for line in raw_file:
-    raw_text.append(line)
-
 X = []
 
-def textSplit():
+def textSplit(filename):
     """Splits the text into header and notes, reads from the file, and returns 
        the split array"""
+    #Defs
+    raw_file = open(filename)
+    raw_text = []
     X = []
     songs = []
     prev_end = 0
+
+    for line in raw_file:
+        raw_text.append(line)
 
     for i in range(len(raw_text)):
         if(raw_text[i] == "~\n"):
@@ -121,7 +121,14 @@ def bodyToInt(text):
                 bStructure.append("~")
         elif(text[i] != "'" and text[i] != ","): #Anything else
             bStructure.append(text[i])
-    return bNotes, bStructure
+    for i in range(len(bNotes)): #Turns notes into numbers
+        bNotes[i] = noteToInt(bNotes[i])
+    iNotes = [bNotes[0]]
+    for i in range(1, len(bNotes)): #Turns numbers into intervals between notes
+        iNotes.append(bNotes[i] - bNotes[i - 1])
+    return iNotes, bStructure
 
-X = textSplit()
-print(bodyToInt(X[0][1]))
+
+
+X = textSplit(filename)
+print(X)

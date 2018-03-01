@@ -5,15 +5,21 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
+from structureNotesRNN import textSplit
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
 #Settings
-filename = 'Data/navySeal.txt'
+filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/weights_09_0.8179.hdf5"
 seq_length = 25 #Length of training sequences to feed into the network
 
 #Defs
-raw_text = open(filename).read()
+split_text = textSplit(filename)
+raw_text = ""
+
+for i in split_text:
+    raw_text += i[0]
+
 chars = sorted(list(set(raw_text)))
 char_to_int = dict((c, i) for i, c in enumerate(chars))
 int_to_char = dict((i, c) for i, c in enumerate(chars))
