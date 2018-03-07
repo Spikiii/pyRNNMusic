@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
@@ -10,13 +10,14 @@ from structureNotesRNN import textSplit
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/weights_09_0.8179.hdf5"
-seq_length = 25 #Length of training sequences to feed into the network
+weights_filename = "Checkpoints/header_0.9831.hdf5"
+seq_length = 7 #Length of training sequences to feed into the network
+creativity = 0.7 #Makes the outputs more... interesting?
 
 #Defs
 split_text = textSplit(filename)
 raw_text = ""
-
+#raw_text = open(filename).read()
 for i in split_text:
     raw_text += i[0]
 
@@ -40,7 +41,7 @@ for i in range(0, n_chars - seq_length):
 n_patterns = len(dataX)
 print("Total Patterns: ", n_patterns)
 
-X = numpy.reshape(dataX, (n_patterns, seq_length, 1)) #Reshaping the data for Keras
+X = np.reshape(dataX, (n_patterns, seq_length, 1)) #Reshaping the data for Keras
 X = X / float(n_vocab) #Normalizing the data
 y = np_utils.to_categorical(dataY) #Something about hot encoding?
 
@@ -53,11 +54,17 @@ model.add(Dropout(0.2))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 model.compile(loss = "categorical_crossentropy", optimizer = "adam")
 
+def sample(a, temp):
+    #Adds in a temperature variable to the output from the model
+    a = np.log(a) / temp
+    a = np.exp(a) / np.sum(np.exp(a))
+    return np.argmax(a)
+
 def train(e):
     """Trains the network"""
     #Creating checkpoint system
     model.load_weights(weights_filename)
-    filepath="Checkpoints/weights_{epoch:02d}_{loss:.4f}.hdf5"
+    filepath="Checkpoints/header_{loss:.4f}.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor = 'loss', verbose = 1, save_best_only = True, mode = 'min')
     callbacks_list = [checkpoint]
 
@@ -69,23 +76,35 @@ def generate(leng):
     #Load the network weights
     model.load_weights(weights_filename)
     model.compile(loss = 'categorical_crossentropy', optimizer = 'adam')
-
-    # pick a random seed
-    start = numpy.random.randint(0, len(dataX) - 1)
+    #seed = "X: 1\nT:"
+    #Pick a random seed
+    start = np.random.randint(0, len(dataX) - 1)
     pattern = dataX[start]
-
+    #pattern = [char_to_int[char] for char in seed]
+    pattern_text = ""
+    for i in range(len(pattern)):
+        pattern_text += int_to_char[pattern[i]]
     output = ""
     # generate characters
-    for i in range(leng):
-        x = numpy.reshape(pattern, (1, len(pattern), 1))
+    i = 0
+    while(i <= leng or output[len(output) - 1] != "\n"):
+        x = np.reshape(pattern, (1, len(pattern), 1))
         x = x / float(n_vocab)
         prediction = model.predict(x, verbose=0)
-        index = numpy.argmax(prediction)
+        m = max(prediction[0])
+        choices = []
+        for j in prediction[0]:
+            if(j / m >= creativity):
+                choices.append(j)
+        index = prediction[0].tolist().index(np.random.choice(choices))
         result = int_to_char[index]
         seq_in = [int_to_char[value] for value in pattern]
         output += result
         pattern.append(index)
         pattern = pattern[1:len(pattern)]
-    print("".join([int_to_char[value] for value in pattern]) + "|" + output)
+        i += 1
+    print(pattern_text + "|" + output)
 
-generate(1000)
+#train(20)
+while(input("|||||") != "x"):
+    generate(50)

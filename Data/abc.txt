@@ -384,3 +384,184 @@ K: Gmaj
 |:gfeg fedf|edef edBd|gfgd edBG|ABAG EDEF|
 |GFGB AGED|GBdg e2df|gfgd edBG|ABAF G4:|
 ~
+X: 34
+T: The Home Ruler
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Dmaj
+AF|D2FA DAFA|dfed B2dB|A2AB AFDE|(3FED ED B,DA,B,|
+D2FA DAFA|dfed B2dB|A2AB AFDE|F2D2 D2 :||
+dB|Addc d3 f|afbf afed|efed BAFA|fded BdA2|
+Addc d3 f|afbf afed|efed BAdB|AFEF D2:||
+~
+X: 35
+T: Soldier's Joy
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Dmaj
+|:AFDF AFDF|A2 d2 d2 cB|AFDF AFDF|G2E2 E2 FG|
+|AFDF AFDF|A2 d2 d2 de|fafd egec|d2 d2 d4:|
+|:fdfd fagf|edcd efge|fdfd fagf|edcB A2 de|
+| fdfd fagf| ecAc efge| fafd egec|d2 d2 d4:||
+~
+X: 36
+T: Cronin's
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Gmaj
+BA|GA Bd dB de|ga ge de ga|ba ge dB GA|BA AG Ac BA|
+GA Bd dB de|ga ge de ga|ba ge dB Ac|AG GF G2:|
+|:(3efg|af d^c d2 ga|be ed e2 ga|bg (3agf ge dB|BA AG Ac BA|
+GA Bd dB de|ga ge de ga|ba ge dB AB|G2 GF G2:|
+~
+X: 37
+T: Th37 Road To Lisdoonvarna
+R: slide
+M: 12/8
+L: 1/8
+K: Edor
+E2B B2A B2c d2A|F2A ABA D2E FED|E2B B2A B2c d3|cdc B2A B2E E3:|
+|:e2f gfe d2B Bcd|c2A ABc d2B B3|e2f gfe d2B Bcd|cdc B2A B2E E3:||
+~
+X: 38
+T: Merrily Kissed The Quaker
+R: slide
+M: 12/8
+L: 1/8
+K: Gmaj
+|:D|GAB G2B c2A BGE|GAB DEG A2A AGE|
+GAB GAB cBA BGE|GAB AGF G3 G2:|
+|:A|BGG AGG BGG AGG|GAB DEG A2A AGA|
+BGG AGG BGG AGG|GAB AGF G3 G2:|
+|:d|g2g a2a bag edB|g2g gab a2a agf|
+g2g f2f ege dBA|GAB AGF G3 G2:|
+~
+X: 39
+T: O'Keeffe's
+R: slide
+M: 12/8
+L: 1/8
+K: Ador
+|:A2e e2d BAB d2B|A2e e2d B2A GAB|
+A2e e2d BAB d3|BAB d2e B2A A3:|
+|:e2a a2b a2g e2d|efg a2b a2g e2f|
+g3 gfe dBA G3|BAB d2e B2A A3:|
+~
+X: 40
+T: The Star Above The Garter
+R: slide
+M: 12/8
+L: 1/8
+K: Gmaj
+d2B BAG ~A3 ABA|G2E c2B BAG ABc|
+d2B BAG ~A3 ABA|G2E c2E D3 D3:|
+|:d2e f2a g2e d2B|G2B c2B BAG ABc|
+d2e f2a g2e d2B|G2B c2E D3 D3:|
+~
+X: 41
+T: Denis Murphy's
+R: slide
+M: 12/8
+L: 1/8
+K: Dmaj
+|:A2D FED F2A A2f|gfe fed e2d BdB|
+A2D FED F2A A2f|a2f efe d3 d3:|
+|:d2e f3 gfe f3|gfe fed e2d BdB|
+d2e f3 gfe f2f|a2f efe d3 d3:|
+~
+X: 43
+T: The Dingle Regatta
+R: slide
+M: 12/8
+L: 1/8
+K: Dmaj
+|:dcd e2d BAB d2B|A3 AGA B2A G2A|dcd e2d BAB d2B|A3 B2A G3 G2A:|
+|:d3 def g3 gfg|a3 aga b2ag2e|d3 def g3 gfg|a2gf2e def g3:|
+|:g3 d3 B3 G3|FGA DEF G2A Bde|g3 d3 B3 G3|FGA DEF G6:|
+~
+X: 44
+T: The Cliffs Of Moher
+R: jig
+M: 6/8
+L: 1/8
+K: Ador
+|:a3 bag| eaf ged| c2A BAG| EFG ABd|
+eaa bag| eaf ged|c2A BAG| EFG A3:|
+e2e dBA| e2e dBA| GAB dBA| GAB dBd|
+e2e dBA| e2e dBA| GAB dBA| EFG A3|
+efe dBA| efe dBA|GAB dBA| GAB dBd|
+efe ded| cec BeB| GAB dBA| EFG A3|
+~
+X: 45
+T: Haste To The Wedding
+R: jig
+M: 6/8
+L: 1/8
+K: Dmaj
+|:AFA Agf|ede fdB|AFA dAF|EFE EFG|
+AFA Agf|ede fdB|A2g faf|ded d3:|
+|:afa afa|bgb bgb|afa agf|ede efg|
+a3 f3|ede fdB|A2g faf|ded d3:|
+~
+X: 46
+T: The Irish Washerwoman
+R: jig
+M: 6/8
+L: 1/8
+K: Gmaj
+|:BGG DGG|BGB dcB|cAA EAA|cAc edc|
+BGG DGG|BGB dcB|cBc Adc|BGG G3:|
+|:BGG DGG|BGB BAG|AFF DFF|AFA AGF|
+EGG DGG|CGG B,GG|cBc Adc|BGG G3:|
+~
+X: 47
+T: Tripping Up The Stairs
+R: jig
+M: 6/8
+L: 1/8
+K: Dmaj
+|:FAA GBB|FAd fed|cBc ABc|dfe dAG|
+FAA GBB|FAd fed|c2c ABc|dfe d2A:|
+dBB fBB|dBB fed|cAA eAA|efe edc|
+dBB fBB|fgf fed|cBc ABc|dfe d3:|
+~
+X: 48
+T: The Mist On The Mountain
+R: jig
+M: 6/8
+L: 1/8
+K: Ador
+G|EAA ABd|e2 A AGE|~G3 GAB|dBA GED|
+EAA ABd|e2A AGE|efg dBG|BAG A2:|
+a|age a2b|age edB|AGE G2A|BAB GED|
+age a2b|age edB|AGE G2A|BAG A3|
+age a2b|age edB|AGE G2A|BAB GED|
+EDE G2A|BAG ABd|efg dBG|BAG A2||
+~
+X: 49
+T: The Cup Of Tea
+R: reel
+M: 4/4
+L: 1/8
+K: Edor
+|:BAGF GEEF|GEBE GEEA|BAGF GEEG|FDAD FDDA|
+BAGF GEEF|GEBE GEEA|B2 BA GABc|dBAG FD D2:|
+K:D
+|:d2 eg fdec|d2 eg fB B2|d2 eg fdec|dBAG FD D2|
+d2 eg fdec|dfaf g2 fg|afge fdec|dBAG FD D2:|
+|:FAdA FABA|FAdA FEE2|FAdA FABc|dBAG FD D2|
+FAdA FABA|FAde fee2|fdec dBAF|GBAG FD D2:|
+~
+X: 50
+T: The Congress
+R: reel
+M: 4/4
+L: 1/8
+K: Ador
+|:eAAG A2Bd|eaaf gedg|eAcA eAcA|BGGA Bdeg|
+eAAG A2Bd|eaaf gedB|cBcd eged|cABG A2Bd:|
+|:eaag abag|eaag egdg|egdg egdg|eaaf gedg|
+eaag a2ag|eaaf gedB|c2cd e2ed|cABG A2Bd:|

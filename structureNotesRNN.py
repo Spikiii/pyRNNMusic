@@ -127,8 +127,3 @@ def bodyToInt(text):
     for i in range(1, len(bNotes)): #Turns numbers into intervals between notes
         iNotes.append(bNotes[i] - bNotes[i - 1])
     return iNotes, bStructure
-
-
-
-X = textSplit(filename)
-print(X)
