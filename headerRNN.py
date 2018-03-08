@@ -6,13 +6,14 @@ from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 from structureNotesRNN import textSplit
+from titleRNN import generate as titleGen
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
 #Settings
 filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/header_0.9831.hdf5"
 seq_length = 7 #Length of training sequences to feed into the network
-creativity = 0.7 #Makes the outputs more... interesting?
+creativity = 0.8
 
 #Defs
 split_text = textSplit(filename)
@@ -26,8 +27,8 @@ char_to_int = dict((c, i) for i, c in enumerate(chars))
 int_to_char = dict((i, c) for i, c in enumerate(chars))
 n_chars = len(raw_text)
 n_vocab = len(chars)
-print("Total Characters: ", n_chars)
-print("Total Vocab: ", n_vocab)
+#print("Total Characters: ", n_chars)
+#print("Total Vocab: ", n_vocab)
 
 dataX = []
 dataY = []
@@ -39,7 +40,7 @@ for i in range(0, n_chars - seq_length):
     dataX.append([char_to_int[char] for char in seq_in])
     dataY.append(char_to_int[seq_out])
 n_patterns = len(dataX)
-print("Total Patterns: ", n_patterns)
+#print("Total Patterns: ", n_patterns)
 
 X = np.reshape(dataX, (n_patterns, seq_length, 1)) #Reshaping the data for Keras
 X = X / float(n_vocab) #Normalizing the data
@@ -54,12 +55,6 @@ model.add(Dropout(0.2))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 model.compile(loss = "categorical_crossentropy", optimizer = "adam")
 
-def sample(a, temp):
-    #Adds in a temperature variable to the output from the model
-    a = np.log(a) / temp
-    a = np.exp(a) / np.sum(np.exp(a))
-    return np.argmax(a)
-
 def train(e):
     """Trains the network"""
     #Creating checkpoint system
@@ -71,23 +66,32 @@ def train(e):
     #Do the thing!
     model.fit(X, y, epochs = e, batch_size = 128, callbacks = callbacks_list)
 
-def generate(leng):
+def generate(leng, log = True):
     """Generates text"""
+    #Generates seed
+    title_raw = titleGen(200, False).split("\n")
+    i = np.random.choice(title_raw)
+    if (len("X: 1\nT: " + i + "\n") < seq_length):
+        for j in title_raw:
+            i = j
+            if (len("X: 1\nT: " + i + "\n") >= seq_length):
+                break
+    seed_raw = "X: 1\nT: " + i + "\n"
+    seed = "X: 1\nT: " + i + "\n"
+
+    #Filters seed
+    if(len(seed) > seq_length):
+        seed = seed[len(seed) - seq_length:]
+
     #Load the network weights
     model.load_weights(weights_filename)
     model.compile(loss = 'categorical_crossentropy', optimizer = 'adam')
-    #seed = "X: 1\nT:"
-    #Pick a random seed
-    start = np.random.randint(0, len(dataX) - 1)
-    pattern = dataX[start]
-    #pattern = [char_to_int[char] for char in seed]
-    pattern_text = ""
-    for i in range(len(pattern)):
-        pattern_text += int_to_char[pattern[i]]
+    pattern = [char_to_int[char] for char in seed]
     output = ""
-    # generate characters
+
+    #Generate characters
     i = 0
-    while(i <= leng or output[len(output) - 1] != "\n"):
+    while((i <= leng or output[len(output) - 1] != "\n") and (len(output) == 0 or output[len(output) - 1] != "~")):
         x = np.reshape(pattern, (1, len(pattern), 1))
         x = x / float(n_vocab)
         prediction = model.predict(x, verbose=0)
@@ -103,8 +107,10 @@ def generate(leng):
         pattern.append(index)
         pattern = pattern[1:len(pattern)]
         i += 1
-    print(pattern_text + "|" + output)
+    if(log):
+        print(seed_raw + output[:len(output) - 2])
+    else:
+        return seed_raw + output[:len(output) - 2]
 
 #train(20)
-while(input("|||||") != "x"):
-    generate(50)
+generate(100, True)

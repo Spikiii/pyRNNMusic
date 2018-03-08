@@ -10,18 +10,15 @@ from keras.utils import np_utils
 filename = 'Data/titles.txt'
 weights_filename = "Checkpoints/titles_0.6224.hdf5"
 seq_length = 10 #Length of training sequences to feed into the network
-creativity = .5
+creativity = .8
+
 #Defs
 raw_text = open(filename).read()
-
 chars = sorted(list(set(raw_text)))
 char_to_int = dict((c, i) for i, c in enumerate(chars))
 int_to_char = dict((i, c) for i, c in enumerate(chars))
 n_chars = len(raw_text)
 n_vocab = len(chars)
-print("Total Characters: ", n_chars)
-print("Total Vocab: ", n_vocab)
-
 dataX = []
 dataY = []
 
@@ -32,7 +29,10 @@ for i in range(0, n_chars - seq_length):
     dataX.append([char_to_int[char] for char in seq_in])
     dataY.append(char_to_int[seq_out])
 n_patterns = len(dataX)
-print("Total Patterns: ", n_patterns)
+
+#print("Total Characters: ", n_chars)
+#print("Total Vocab: ", n_vocab)
+#print("Total Patterns: ", n_patterns)
 
 X = np.reshape(dataX, (n_patterns, seq_length, 1)) #Reshaping the data for Keras
 X = X / float(n_vocab) #Normalizing the data
@@ -58,11 +58,12 @@ def train(e):
     # Do the thing!
     model.fit(X, y, epochs=e, batch_size=128, callbacks=callbacks_list)
 
-def generate(leng, creativity):
+def generate(leng, log = True):
     """Generates text"""
     #Load the network weights
     model.load_weights(weights_filename)
     model.compile(loss = 'categorical_crossentropy', optimizer = 'adam')
+
     #Pick a random seed
     start = np.random.randint(0, len(dataX) - 1)
     pattern = dataX[start]
@@ -70,7 +71,8 @@ def generate(leng, creativity):
     for i in range(len(pattern)):
         pattern_text += int_to_char[pattern[i]]
     output = ""
-    # generate characters
+
+    #Generate characters
     i = 0
     while(i <= leng or output[len(output) - 1] != "\n"):
         x = np.reshape(pattern, (1, len(pattern), 1))
@@ -88,11 +90,14 @@ def generate(leng, creativity):
         pattern.append(index)
         pattern = pattern[1:len(pattern)]
         i += 1
-    print(pattern_text + "|" + output)
+    if(log):
+        print(pattern_text + "|" + output)
+    else:
+        return pattern_text + output
 
 #train(20)
 #generate(100)
-i = input("|||||")
-while(i != "x"):
-    generate(500, float(i))
-    i = input("|||||")
+#i = input("|||||")
+#while(i != "x"):
+#    generate(500)
+#    i = input("|||||")
