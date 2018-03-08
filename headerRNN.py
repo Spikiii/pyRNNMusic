@@ -5,7 +5,7 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
-from structureNotesRNN import textSplit
+from genMusic import textSplit
 from titleRNN import generate as titleGen
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
@@ -70,7 +70,7 @@ def generate(leng, log = True):
     """Generates text"""
     #Generates seed
     title_raw = titleGen(200, False).split("\n")
-    i = np.random.choice(title_raw)
+    i = np.random.choice(title_raw[:len(title_raw) - 1])
     if (len("X: 1\nT: " + i + "\n") < seq_length):
         for j in title_raw:
             i = j
@@ -94,7 +94,7 @@ def generate(leng, log = True):
     while((i <= leng or output[len(output) - 1] != "\n") and (len(output) == 0 or output[len(output) - 1] != "~")):
         x = np.reshape(pattern, (1, len(pattern), 1))
         x = x / float(n_vocab)
-        prediction = model.predict(x, verbose=0)
+        prediction = model.predict(x, verbose = 0)
         m = max(prediction[0])
         choices = []
         for j in prediction[0]:
@@ -113,4 +113,8 @@ def generate(leng, log = True):
         return seed_raw + output[:len(output) - 2]
 
 #train(20)
-generate(100, True)
+#generate(100)
+#i = input("|||||")
+#while(i != "x"):
+#    generate(500)
+#    i = input("|||||")

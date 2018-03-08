@@ -4,7 +4,6 @@ T:Farewell to Ireland
 R:reel
 H:Originally a Scottish tune: "The Scotsman's Farewell to Ireland".
 N:Bars 1-6 are played one octave up by flutes, whistles and pipes.
-Z:id:hn-reel-50
 M:C|
 K:Ador
 A,2A,C E2EF|GEDB, G,A,B,G,|A,2A,C E2EF|GEDB, EA,A,G,|
@@ -549,7 +548,6 @@ L: 1/8
 K: Edor
 |:BAGF GEEF|GEBE GEEA|BAGF GEEG|FDAD FDDA|
 BAGF GEEF|GEBE GEEA|B2 BA GABc|dBAG FD D2:|
-K:D
 |:d2 eg fdec|d2 eg fB B2|d2 eg fdec|dBAG FD D2|
 d2 eg fdec|dfaf g2 fg|afge fdec|dBAG FD D2:|
 |:FAdA FABA|FAdA FEE2|FAdA FABc|dBAG FD D2|
