@@ -5,7 +5,7 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
-from genMusic import textSplit
+from musicMethods import textSplit
 from titleRNN import generate as titleGen
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
@@ -55,10 +55,11 @@ model.add(Dropout(0.2))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 model.compile(loss = "categorical_crossentropy", optimizer = "adam")
 
-def train(e):
+def train(e, load = True):
     """Trains the network"""
     #Creating checkpoint system
-    model.load_weights(weights_filename)
+    if(load):
+        model.load_weights(weights_filename)
     filepath="Checkpoints/header_{loss:.4f}.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor = 'loss', verbose = 1, save_best_only = True, mode = 'min')
     callbacks_list = [checkpoint]
@@ -113,8 +114,3 @@ def generate(leng, log = True):
         return seed_raw + output[:len(output) - 2]
 
 #train(20)
-#generate(100)
-#i = input("|||||")
-#while(i != "x"):
-#    generate(500)
-#    i = input("|||||")

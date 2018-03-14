@@ -47,10 +47,11 @@ model.add(Dropout(0.1))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 model.compile(loss = "categorical_crossentropy", optimizer = "adam")
 
-def train(e):
+def train(e, load = True):
     """Trains the network"""
     #Creating checkpoint system
-    model.load_weights(weights_filename)
+    if(load):
+        model.load_weights(weights_filename)
     filepath="Checkpoints/titles_{loss:.4f}.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor = 'loss', verbose = 1, save_best_only = True, mode = 'min')
     callbacks_list = [checkpoint]
@@ -96,8 +97,3 @@ def generate(leng, log = True):
         return pattern_text + output
 
 #train(20)
-#generate(100)
-#i = input("|||||")
-#while(i != "x"):
-#    generate(500)
-#    i = input("|||||")

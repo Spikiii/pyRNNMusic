@@ -5,12 +5,12 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
-from genMusic import textSplit, bodyToInt
+from musicMethods import textSplit, bodyToInt
 
 #Settings
 filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/structure_0.5828.hdf5"
-seq_length = 20 #Length of training sequences to feed into the network
+seq_length = 50 #Length of training sequences to feed into the network
 creativity = .5
 
 #Defs
@@ -55,10 +55,11 @@ model.add(Dropout(0.2))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 model.compile(loss = "categorical_crossentropy", optimizer = "adam")
 
-def train(e):
+def train(e, load = True):
     """Trains the network"""
     #Creating checkpoint system
-    model.load_weights(weights_filename)
+    if(load):
+        model.load_weights(weights_filename)
     filepath="Checkpoints/structure_{loss:.4f}.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor = 'loss', verbose = 1, save_best_only = True, mode = 'min')
     callbacks_list = [checkpoint]
@@ -103,9 +104,4 @@ def generate(leng, log = True):
     else:
         return pattern_text + output
 
-#train(20)
-generate(500)
-#i = input("|||||")
-#while(i != "x"):
-#    generate(500)
-#    i = input("|||||")
+#train(20, False)
