@@ -7,6 +7,8 @@ from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 from musicMethods import textSplit
 from titleRNN import generate as titleGen
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
 #Settings

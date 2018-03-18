@@ -6,12 +6,14 @@ from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 from musicMethods import textSplit, bodyToInt
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/structure_0.5828.hdf5"
 seq_length = 50 #Length of training sequences to feed into the network
-creativity = .5
+creativity = .8
 
 #Defs
 raw_text = ""

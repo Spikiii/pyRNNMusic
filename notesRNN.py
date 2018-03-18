@@ -7,12 +7,15 @@ from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 from keras.optimizers import Adam
 from musicMethods import textSplit, bodyToInt, intToNote
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/notes_2.4736.hdf5"
+weights_filename = "Checkpoints/notes_2.4461.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
-creativity = .8
+creativity = 0.8
+learning_rate = 0.001
 
 #Defs
 intData = [] #Interval data
@@ -83,7 +86,7 @@ model.add(Dropout(0.05))
 model.add(LSTM(256))
 model.add(Dropout(0.05))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
-optim = Adam(lr = 0.0005)
+optim = Adam(lr = learning_rate)
 model.compile(loss = "categorical_crossentropy", optimizer = optim)
 
 def train(e, load = True):
@@ -96,7 +99,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     # Do the thing!
-    model.fit(X, y, epochs = e, batch_size = 256, callbacks = callbacks_list)
+    model.fit(X, y, epochs = e, batch_size = 128, callbacks = callbacks_list)
 
 def generate(seed_raw, log = True):
     """Generates text"""
@@ -150,4 +153,4 @@ def generate(seed_raw, log = True):
     else:
         return notes
 
-train(20, True)
+#train(50, True)

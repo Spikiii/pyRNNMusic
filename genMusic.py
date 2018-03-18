@@ -5,7 +5,7 @@ from notesRNN import generate as notesGen
 
 def genSong(leng):
     output = ""
-    output += headerGen(200, False) + "\n"
+    output += headerGen(200, False)
     print(output)
     structure = structureGen(leng, False)
     notes = notesGen(structure, False)

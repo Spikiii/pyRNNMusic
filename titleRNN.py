@@ -5,6 +5,8 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/titles.txt'
@@ -97,3 +99,4 @@ def generate(leng, log = True):
         return pattern_text + output
 
 #train(20)
+#generate(500)
