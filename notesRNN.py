@@ -12,9 +12,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/notes_2.4461.hdf5"
+weights_filename = "Checkpoints/notes_0.5021.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
-creativity = 0.8
+creativity = 0.0001
 learning_rate = 0.001
 
 #Defs
@@ -99,7 +99,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     # Do the thing!
-    model.fit(X, y, epochs = e, batch_size = 128, callbacks = callbacks_list)
+    model.fit(X, y, epochs = e, batch_size = 256, callbacks = callbacks_list)
 
 def generate(seed_raw, log = True):
     """Generates text"""
@@ -146,7 +146,7 @@ def generate(seed_raw, log = True):
     notes = []
     prev = 0
     for i in output:
-        notes.append(intToNote(i + prev))
+        notes.append(intToNote(i - prev))
         prev = i
     if(log):
         print(notes)

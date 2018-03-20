@@ -11,8 +11,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/structure_0.5828.hdf5"
-seq_length = 50 #Length of training sequences to feed into the network
+weights_filename = "Checkpoints/structure_1.0393.hdf5"
+seq_length = 200 #Length of training sequences to feed into the network
 creativity = .8
 
 #Defs
