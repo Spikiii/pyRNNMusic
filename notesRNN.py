@@ -14,7 +14,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/notes_0.5021.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
-creativity = 0.0001
+creativity = 0
 learning_rate = 0.001
 
 #Defs
@@ -77,7 +77,12 @@ n_patterns = len(dataX)
 #print("Total Patterns: ", n_patterns)
 
 X = np.reshape(dataX, (n_patterns, seq_length * 2, 1)) #Reshaping the data for Keras
-y = np_utils.to_categorical(dataY) #Something about hot encoding?
+y = []
+for i in dataY:
+    temp = [0] * len(intChars)
+    temp[i] = 1
+    y.append(temp)
+y = np.array(y)
 
 #Defining the Model
 model = Sequential()
@@ -119,17 +124,14 @@ def generate(seed_raw, log = True):
         strSeed_raw.append(char_to_int[i] / len(strChars))
 
     #Start from the seed
-    strSeed = strSeed_raw[:seq_length]
-    intSeed = intDataX[int(np.random.random_sample() * len(intDataX))][:seq_length]
+    strSeed = [j / len(strChars) for j in strSeed_raw[:seq_length]]
+    intSeed = [(j + len(intChars) / 2) / len(intChars) for j in intDataX[int(np.random.random_sample() * len(intDataX))][:seq_length]]
     pattern = strSeed + intSeed
     output = []
-
     #Generate characters
     i = 0
     while(i <= len(noteOccs) - 1):
-        x1 = [j / len(intChars) for j in pattern[:seq_length]]
-        x2 = [j / len(strChars) for j in pattern[seq_length:]]
-        x = np.reshape(x1 + x2, (1, len(pattern), 1))
+        x = np.reshape(pattern, (1, len(pattern), 1))
         prediction = model.predict(x, verbose = 0)
         m = max(prediction[0])
         choices = []
@@ -137,20 +139,22 @@ def generate(seed_raw, log = True):
             if(j / m >= creativity):
                 choices.append(j)
         index = prediction[0].tolist().index(np.random.choice(choices))
-        result = index
+        result = index / len(intChars)
         str_seq_in = pattern[seq_length:] + [strSeed_raw[noteOccs[i]]]
-        int_seq_in = pattern[:seq_length] + [index]
+        int_seq_in = pattern[:seq_length] + [result]
         output.append(result)
-        pattern = int_seq_in[:len(int_seq_in) - 1] + str_seq_in[:len(str_seq_in) - 1]
+        pattern = int_seq_in[1:] + str_seq_in[1:]
         i += 1
+    #This part is good
     notes = []
     prev = 0
     for i in output:
-        notes.append(intToNote(i - prev))
-        prev = i
+        j = i * len(intChars) - len(intChars) / 2
+        notes.append(intToNote(j + prev))
+        prev = j + prev
     if(log):
         print(notes)
     else:
         return notes
 
-#train(50, True)
+train(50, False)
