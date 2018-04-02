@@ -12,10 +12,10 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/notes_0.5021.hdf5"
+weights_filename = "Checkpoints/notes_2.4874.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
 creativity = 0
-learning_rate = 0.001
+learning_rate = 0.000000000001
 
 #Defs
 intData = [] #Interval data
@@ -157,4 +157,4 @@ def generate(seed_raw, log = True):
     else:
         return notes
 
-train(50, False)
+train(50, True)
