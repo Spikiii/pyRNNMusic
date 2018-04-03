@@ -12,10 +12,13 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/notes_2.4874.hdf5"
+weights_filename = "Checkpoints/notes_2.4917.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
-creativity = 0
-learning_rate = 0.000000000001
+creativity = 0.8
+learning_rate = 0.001
+drop_out = 0
+minN = 0
+maxN = 15
 
 #Defs
 intData = [] #Interval data
@@ -35,7 +38,7 @@ for i in range(len(strData)):
     if(strData[i] == "~"):
         noteOccs.append(i)
 
-intChars = range(-30, 30)
+intChars = range(-15, 15)
 strChars = sorted(list(set(strData)))
 char_to_int = dict((c, i) for i, c in enumerate(strChars))
 int_to_char = dict((i, c) for i, c in enumerate(strChars))
@@ -87,9 +90,11 @@ y = np.array(y)
 #Defining the Model
 model = Sequential()
 model.add(LSTM(256, input_shape = (X.shape[1], X.shape[2]), return_sequences = True))
-model.add(Dropout(0.05))
+model.add(Dropout(drop_out))
+model.add(LSTM(256, return_sequences = True))
+model.add(Dropout(drop_out))
 model.add(LSTM(256))
-model.add(Dropout(0.05))
+model.add(Dropout(drop_out))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 optim = Adam(lr = learning_rate)
 model.compile(loss = "categorical_crossentropy", optimizer = optim)
@@ -150,6 +155,10 @@ def generate(seed_raw, log = True):
     prev = 0
     for i in output:
         j = i * len(intChars) - len(intChars) / 2
+        if(j + prev <= minN):
+            prev = minN
+        if(j + prev >= maxN):
+            prev = maxN
         notes.append(intToNote(j + prev))
         prev = j + prev
     if(log):

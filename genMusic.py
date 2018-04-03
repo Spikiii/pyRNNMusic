@@ -1,7 +1,10 @@
-from titleRNN import generate as titleGen
+print("Loading\n-----")
 from headerRNN import generate as headerGen
+print("Header Loaded")
 from structureRNN import generate as structureGen
+print("Structure Loaded")
 from notesRNN import generate as notesGen
+print("Notes Loaded\n-----\n")
 
 def genSong(leng):
     output = ""
