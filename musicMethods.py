@@ -109,6 +109,8 @@ def bodyToInt(text):
             except:
                 bNotes.append(note)
                 bStructure.append("~")
+        elif(text[i] == "~"):
+            bStructure.append("(~)")
         elif(text[i] != "'" and text[i] != ","): #Anything else
             bStructure.append(text[i])
     for i in range(len(bNotes)): #Turns notes into numbers
@@ -116,4 +118,12 @@ def bodyToInt(text):
     iNotes = [bNotes[0]]
     for i in range(1, len(bNotes)): #Turns numbers into intervals between notes
         iNotes.append(bNotes[i] - bNotes[i - 1])
-    return iNotes, bStructure
+    for i in range(len(bStructure)): #Changing the long notes into numbers (just to differentiate them)
+        if(bStructure[i] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']):
+            bStructure[i] = "(" + bStructure[i] + ")"
+    notePos = 0
+    for i in range(len(bStructure)):
+        if(bStructure[i] == "~"):
+            bStructure[i] = str(iNotes[notePos])
+            notePos += 1
+    return bStructure

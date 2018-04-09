@@ -5,17 +5,17 @@ from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
-from keras.optimizers import Adam
+from keras.optimizers import RMSprop
 from musicMethods import textSplit, bodyToInt, intToNote
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/notes_2.4917.hdf5"
+weights_filename = "Checkpoints/notes_2.4856.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
 creativity = 0.8
-learning_rate = 0.001
+learning_rate = 0.0001
 drop_out = 0
 minN = 0
 maxN = 15
@@ -96,7 +96,7 @@ model.add(Dropout(drop_out))
 model.add(LSTM(256))
 model.add(Dropout(drop_out))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
-optim = Adam(lr = learning_rate)
+optim = RMSprop(lr = learning_rate)
 model.compile(loss = "categorical_crossentropy", optimizer = optim)
 
 def train(e, load = True):
@@ -109,7 +109,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     # Do the thing!
-    model.fit(X, y, epochs = e, batch_size = 256, callbacks = callbacks_list)
+    model.fit(X, y, epochs = e, batch_size = 512, callbacks = callbacks_list)
 
 def generate(seed_raw, log = True):
     """Generates text"""
@@ -150,7 +150,6 @@ def generate(seed_raw, log = True):
         output.append(result)
         pattern = int_seq_in[1:] + str_seq_in[1:]
         i += 1
-    #This part is good
     notes = []
     prev = 0
     for i in output:
@@ -159,11 +158,11 @@ def generate(seed_raw, log = True):
             prev = minN
         if(j + prev >= maxN):
             prev = maxN
-        notes.append(intToNote(j + prev))
-        prev = j + prev
+            notes.append(intToNote(j + prev))
+            prev = j + prev
     if(log):
         print(notes)
     else:
         return notes
 
-train(50, True)
+train(5000, True)
