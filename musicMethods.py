@@ -19,7 +19,7 @@ def textSplit(filename):
         raw_text.append(line)
 
     for i in range(len(raw_text)):
-        if(raw_text[i] == "~\n"):
+        if(raw_text[i] == "\n"):
             songs.append(raw_text[prev_end:i])
             prev_end = i
     songs.append(raw_text[prev_end:i])

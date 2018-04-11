@@ -8,7 +8,7 @@ from keras.utils import np_utils
 from musicMethods import textSplit
 from titleRNN import generate as titleGen
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+#os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 #Following a LSTM Text Generation tutorial from <https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/>
 
 #Settings
@@ -22,6 +22,10 @@ split_text = textSplit(filename)
 raw_text = ""
 #raw_text = open(filename).read()
 for i in split_text:
+    header = i[0].split("\n")
+    for j in header:
+        if(j[:2] == "T:"):
+            print(j[2:])
     raw_text += i[0]
 
 chars = sorted(list(set(raw_text)))
