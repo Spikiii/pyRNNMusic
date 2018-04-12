@@ -10,7 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
 filename = 'Data/titles.txt'
-weights_filename = "Checkpoints/titles_0.6224.hdf5"
+weights_filename = "Checkpoints/titles_2.7246.hdf5"
 seq_length = 10 #Length of training sequences to feed into the network
 creativity = .8
 
@@ -59,7 +59,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     # Do the thing!
-    model.fit(X, y, epochs=e, batch_size=128, callbacks=callbacks_list)
+    model.fit(X, y, epochs=e, batch_size=1024, callbacks=callbacks_list)
 
 def generate(leng, log = True):
     """Generates text"""
@@ -98,5 +98,5 @@ def generate(leng, log = True):
     else:
         return pattern_text + output
 
-#train(20)
+train(500, True)
 #generate(500)

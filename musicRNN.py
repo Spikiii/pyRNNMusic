@@ -73,7 +73,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     # Do the thing!
-    model.fit(X, y, epochs=e, batch_size=128, callbacks=callbacks_list)
+    model.fit(X, y, epochs=e, batch_size=1024, callbacks=callbacks_list)
 
 def generate(leng, log = True):
     """Generates text"""
@@ -144,4 +144,4 @@ def generate(leng, log = True):
     else:
         return output
 
-#train(50, True)
+train(500, False)
