@@ -75,7 +75,13 @@ def noteToInt(n):
         try:
             return i + notes.index(n.upper()) + 12
         except:
-            print("error")
+            try:
+                if(n[0] == "^"):
+                    return noteToInt(n[1:]) + 1
+                elif(n[0] == "_"):
+                    return noteToInt(n[1:]) - 1
+            except:
+                print("Found [" + n + "], please convert that to a normal note")
 
 def bodyToInt(text):
     """Converts notes to the intervals between the notes. Feed in the body of a
@@ -115,6 +121,8 @@ def bodyToInt(text):
             bStructure.append(text[i])
     for i in range(len(bNotes)): #Turns notes into numbers
         bNotes[i] = noteToInt(bNotes[i])
+        #print(bNotes[i])
+        #print()
     iNotes = [bNotes[0]]
     for i in range(1, len(bNotes)): #Turns numbers into intervals between notes
         iNotes.append(bNotes[i] - bNotes[i - 1])

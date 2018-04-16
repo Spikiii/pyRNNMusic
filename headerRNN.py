@@ -13,19 +13,18 @@ import os
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/header_0.9831.hdf5"
-seq_length = 7 #Length of training sequences to feed into the network
+weights_filename = "Checkpoints/header_4.2362.hdf5"
+seq_length = 20 #Length of training sequences to feed into the network
 creativity = 0.8
 
 #Defs
 split_text = textSplit(filename)
 raw_text = ""
-#raw_text = open(filename).read()
 for i in split_text:
-    header = i[0].split("\n")
-    for j in header:
-        if(j[:2] == "T:"):
-            print(j[2:])
+    #header = i[0].split("\n")
+    #for j in header:
+    #    if(j[:2] == "T:"):
+    #        print(j[2:])
     raw_text += i[0]
 
 chars = sorted(list(set(raw_text)))
@@ -78,13 +77,13 @@ def generate(leng, log = True):
     #Generates seed
     title_raw = titleGen(200, False).split("\n")
     i = np.random.choice(title_raw[:len(title_raw) - 1])
-    if (len("X: 1\nT: " + i + "\n") < seq_length):
+    if (len("X:1\nT: " + i + "\n") < seq_length):
         for j in title_raw:
             i = j
-            if (len("X: 1\nT: " + i + "\n") >= seq_length):
+            if (len("X:1\nT: " + i + "\n") >= seq_length):
                 break
-    seed_raw = "X: 1\nT: " + i + "\n"
-    seed = "X: 1\nT: " + i + "\n"
+    seed_raw = "X:1\nT: " + i + "\n"
+    seed = "X:1\nT: " + i + "\n"
 
     #Filters seed
     if(len(seed) > seq_length):
@@ -119,4 +118,5 @@ def generate(leng, log = True):
     else:
         return seed_raw + output[:len(output) - 2]
 
-#train(20)
+#train(20, False)
+#generate(500)

@@ -144,4 +144,4 @@ def generate(leng, log = True):
     else:
         return output
 
-train(500, False)
+#train(500, False)
