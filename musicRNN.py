@@ -13,7 +13,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/music_0.2889.hdf5"
 seq_length = 200 #Length of training sequences to feed into the network
-creativity = .6
+creativity = .4
 minN = 0
 maxN = 15
 
@@ -112,7 +112,7 @@ def generate(leng, log = True):
         m = max(prediction[0])
         choices = []
         for j in prediction[0]:
-            if(j / m >= creativity):
+            if(j / m >= 1 - creativity):
                 choices.append(j)
         index = prediction[0].tolist().index(np.random.choice(choices))
         result = int_to_char[index]

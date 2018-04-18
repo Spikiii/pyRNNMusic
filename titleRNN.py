@@ -12,7 +12,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 filename = 'Data/titles.txt'
 weights_filename = "Checkpoints/titles_1.6684.hdf5"
 seq_length = 10 #Length of training sequences to feed into the network
-creativity = .8
+creativity = 0.5
 
 #Defs
 raw_text = open(filename).read()
@@ -84,7 +84,7 @@ def generate(leng, log = True):
         m = max(prediction[0])
         choices = []
         for j in prediction[0]:
-            if(j / m >= creativity):
+            if(j / m >= 1 - creativity):
                 choices.append(j)
         index = prediction[0].tolist().index(np.random.choice(choices))
         result = int_to_char[index]
@@ -99,4 +99,4 @@ def generate(leng, log = True):
         return pattern_text + output
 
 #train(500, True)
-#generate(500)
+generate(500)

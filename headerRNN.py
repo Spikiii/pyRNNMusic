@@ -13,9 +13,9 @@ import os
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/header_4.2362.hdf5"
+weights_filename = "Checkpoints/header_3.7776.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
-creativity = 0.8
+creativity = 0.2
 
 #Defs
 split_text = textSplit(filename)
@@ -70,7 +70,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     #Do the thing!
-    model.fit(X, y, epochs = e, batch_size = 1024, callbacks = callbacks_list)
+    model.fit(X, y, epochs = e, batch_size = 4096, callbacks = callbacks_list)
 
 def generate(leng, log = True):
     """Generates text"""
@@ -104,7 +104,7 @@ def generate(leng, log = True):
         m = max(prediction[0])
         choices = []
         for j in prediction[0]:
-            if(j / m >= creativity):
+            if(j / m >= 1 - creativity):
                 choices.append(j)
         index = prediction[0].tolist().index(np.random.choice(choices))
         result = int_to_char[index]
