@@ -118,5 +118,5 @@ def generate(leng, log = True):
     else:
         return seed_raw + output[:len(output) - 2]
 
-#train(20, False)
+train(500, True)
 #generate(500)

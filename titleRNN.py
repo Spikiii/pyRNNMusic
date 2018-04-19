@@ -99,4 +99,4 @@ def generate(leng, log = True):
         return pattern_text + output
 
 #train(500, True)
-generate(500)
+#generate(500)
