@@ -9,7 +9,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #Settings
-filename = 'Data/titles.txt'
+filename = "Data/titles.txt"
 weights_filename = "Checkpoints/titles_0.5690.hdf5"
 seq_length = 10 #Length of training sequences to feed into the network
 creativity = .3
@@ -99,4 +99,4 @@ def generate(leng, log = True):
         return pattern_text + output
 
 #train(500, True)
-generate(500)
+#generate(500)

@@ -11,8 +11,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 
 #Settings
-filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/music_0.2889.hdf5"
+filename = "Data/abc.txt"
+weights_filename = "Checkpoints/music_2.3903.hdf5"
+seeds_filename = ""
 seq_length = 200 #Length of training sequences to feed into the network
 creativity = .4
 minN = 0
@@ -154,4 +155,4 @@ def generate(leng, log = True):
     else:
         return output
 
-train(500, False)
+#train(500, False)
