@@ -13,7 +13,7 @@ import os
 
 #Settings
 filename = 'Data/abc.txt'
-weights_filename = "Checkpoints/header_3.7776.hdf5"
+weights_filename = "Checkpoints/header_1.4838.hdf5"
 seq_length = 20 #Length of training sequences to feed into the network
 creativity = 0.2
 
@@ -118,5 +118,5 @@ def generate(leng, log = True):
     else:
         return seed_raw + output[:len(output) - 2]
 
-train(500, True)
+#train(500, True)
 #generate(500)

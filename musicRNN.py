@@ -9,6 +9,7 @@ from musicMethods import textSplit, bodyToInt, intToNote
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
+
 #Settings
 filename = 'Data/abc.txt'
 weights_filename = "Checkpoints/music_0.2889.hdf5"
@@ -16,6 +17,9 @@ seq_length = 200 #Length of training sequences to feed into the network
 creativity = .4
 minN = 0
 maxN = 15
+log = True
+if(log):
+    print("Imports Loaded")
 
 #Defs
 start_seq = []
@@ -37,6 +41,8 @@ n_chars = len(raw_text)
 n_vocab = len(chars)
 dataX = []
 dataY = []
+if(log):
+    print("Text Processed")
 
 #Breaking the text into patterns to feed into network
 for i in range(0, n_chars - seq_length):
@@ -45,6 +51,8 @@ for i in range(0, n_chars - seq_length):
     dataX.append([char_to_int[char] for char in seq_in])
     dataY.append(char_to_int[seq_out])
 n_patterns = len(dataX)
+if(log):
+    print("Patterns Split")
 
 #print("Total Characters: ", n_chars)
 #print("Total Vocab: ", n_vocab)
@@ -62,6 +70,8 @@ model.add(LSTM(256))
 model.add(Dropout(0.2))
 model.add(Dense(y.shape[1], activation = "softmax")) #Output layer
 model.compile(loss = "categorical_crossentropy", optimizer = "adam")
+if(log):
+    print("Model Initialized")
 
 def train(e, load = True):
     """Trains the network"""
@@ -73,7 +83,7 @@ def train(e, load = True):
     callbacks_list = [checkpoint]
 
     # Do the thing!
-    model.fit(X, y, epochs=e, batch_size=1024, callbacks=callbacks_list)
+    model.fit(X, y, epochs=e, batch_size=256, callbacks=callbacks_list)
 
 def generate(leng, log = True):
     """Generates text"""
@@ -144,4 +154,4 @@ def generate(leng, log = True):
     else:
         return output
 
-#train(500, False)
+train(500, False)
