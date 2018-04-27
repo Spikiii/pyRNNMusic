@@ -97,7 +97,7 @@ def generate(leng, log = True):
 
     #Generate characters
     i = 0
-    while((i <= leng or output[len(output) - 1] != "\n") and (len(output) == 0 or output[len(output) - 1] != "~")):
+    while((i <= leng or output[len(output) - 1] != "\n") and (len(output) == 0 or output[len(output) - 2:] != "~\n\n~")):
         x = np.reshape(pattern, (1, len(pattern), 1))
         x = x / float(n_vocab)
         prediction = model.predict(x, verbose = 0)

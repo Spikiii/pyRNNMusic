@@ -1,7 +1,7 @@
 print("Loading\n-----")
 from headerRNN import generate as headerGen
 print("Header Loaded")
-from musicRNN import generate as musicGen
+from musicRNNPortable import generate as musicGen
 print("Music Loaded\n-----\n")
 
 def genSong(leng):

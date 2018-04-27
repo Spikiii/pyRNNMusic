@@ -12,7 +12,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 filename = "Data/titles.txt"
 weights_filename = "Checkpoints/titles_0.5690.hdf5"
 seq_length = 10 #Length of training sequences to feed into the network
-creativity = .3
+creativity = .8
 
 #Defs
 raw_text = open(filename).read()
